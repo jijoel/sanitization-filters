@@ -35,7 +35,7 @@ var_dump($sanitizer->sanitize());
 
 Which will yield:
 
-``php
+```php
 [
     'first_name'    =>  'John',
     'last_name'     =>  'Doe',
@@ -48,7 +48,7 @@ Which will yield:
 Available Filters
 ------------------------
 
-Filter       Description
+Filter     | Description
 -----------|------------------------
 address    | Street Addresses
 country    | Capitalize country name (or abbreviation)
