@@ -1,10 +1,30 @@
 <?php namespace Jijoel\Sanitizer\Laravel;
 
+use Waavi\Sanitizer\Laravel\Factory as Sanitizer;
 use Illuminate\Support\ServiceProvider;
-use Sanitizer;
+use Jijoel\Sanitizer\Filters;
+
 
 class SanitizerServiceProvider extends ServiceProvider
 {
+    private $sanitizers = [
+        'address' => Filters\Address::class,
+        'country' => Filters\Country::class,
+        'date' => Filters\Date::class,
+        'limit' => Filters\Limit::class,
+        'lower' => Filters\LowerCase::class,
+        'money' => Filters\Name::class,
+        'name' => Filters\Name::class,
+        'number' => Filters\Number::class,
+        'phone' => Filters\Phone::class,
+        'proper' => Filters\TitleCase::class,
+        'state' => Filters\State::class,
+        'strip' => Filters\Strip::class,
+        'title-case' => Filters\TitleCase::class,
+        'upper' => Filters\UpperCase::class,
+        'zip' => Filters\Zip::class,
+    ];
+
     /**
      * Bootstrap the application services.
      *
@@ -22,20 +42,8 @@ class SanitizerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        Sanitizer::extend('address', \Jijoel\Sanitizer\Filters\Address::class);
-        Sanitizer::extend('country', \Jijoel\Sanitizer\Filters\Country::class);
-        Sanitizer::extend('date', \Jijoel\Sanitizer\Filters\Date::class);
-        Sanitizer::extend('limit', \Jijoel\Sanitizer\Filters\Limit::class);
-        Sanitizer::extend('lower', \Jijoel\Sanitizer\Filters\LowerCase::class);
-        Sanitizer::extend('money', \Jijoel\Sanitizer\Filters\Name::class);
-        Sanitizer::extend('name', \Jijoel\Sanitizer\Filters\Name::class);
-        Sanitizer::extend('number', \Jijoel\Sanitizer\Filters\Number::class);
-        Sanitizer::extend('phone', \Jijoel\Sanitizer\Filters\Phone::class);
-        Sanitizer::extend('proper', \Jijoel\Sanitizer\Filters\TitleCase::class);
-        Sanitizer::extend('state', \Jijoel\Sanitizer\Filters\State::class);
-        Sanitizer::extend('strip', \Jijoel\Sanitizer\Filters\Strip::class);
-        Sanitizer::extend('title-case', \Jijoel\Sanitizer\Filters\TitleCase::class);
-        Sanitizer::extend('upper', \Jijoel\Sanitizer\Filters\UpperCase::class);
-        Sanitizer::extend('zip', \Jijoel\Sanitizer\Filters\Zip::class);
+        foreach($this->sanitizers as $key => $value)
+            app('sanitizer')->extend($key, $value);
     }
+
 }

@@ -79,10 +79,13 @@ We also include a Laravel service provider. You can add it to your providers arr
 ```php
 'providers' => [
     ...
-    Jijoel\Sanitizer\Laravel\SanitizerServiceProvider::class,
     Waavi\Sanitizer\Laravel\SanitizerServiceProvider::class,
+    Jijoel\Sanitizer\Laravel\SanitizerServiceProvider::class,
 ];
 ```
+
+NOTE: This class extends the Waavi\Sanitizer class. The service provider MUST be loaded after the Waavi service provider, or you will get an exception that the sanitizer class does not exist.
+
 
 Usage
 --------
@@ -99,5 +102,7 @@ public function rules()
     return [
         'name' => 'required',
         'email' => 'required|email',
+    ];
+}
 ```
 
