@@ -22,7 +22,6 @@
             "Jijoel\\Sanitizer\\": "src/"
         }
     },
-    "minimum-stability": "stable",
     "scripts": {
         "test": "vendor/bin/phpunit"
     }
