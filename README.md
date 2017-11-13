@@ -89,20 +89,32 @@ NOTE: This class extends the Waavi\Sanitizer class. The service provider MUST be
 
 Usage
 --------
-It's recommended to sanitize your data in a FormRequest object before applying rules.
+It's recommended to sanitize your data in a FormRequest object before applying rules. The Waavi/Sanitizer package includes a SanitizesInput trait, which handles this automatically for you.
 
 ```php
-public function rules()
-{
-    Sanitizer::make($data, [
-        'name' => 'trim|escape|name',
-        'email' => 'trim|escape|lower',
-    ])->sanitize();
+use Waavi\Sanitizer\Laravel\SanitizesInput;
 
-    return [
-        'name' => 'required',
-        'email' => 'required|email',
-    ];
-}
+class MyFormRequest extends FormRequest
+{
+    use SanitizesInput;
+
+    public function filters()
+    {
+        return [
+            'name' => 'trim|escape|name',
+            'email' => 'trim|escape|lower',
+        ];
+    }
+
+    public function rules()
+    {
+        return [
+            'name' => 'required',
+            'email' => 'required|email',
+        ];
+    }
+
+    ...
 ```
 
+Please note that at this time, in order for this to work, the Sanitizer facade must exist.
