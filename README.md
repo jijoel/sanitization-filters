@@ -113,8 +113,6 @@ class MyFormRequest extends FormRequest
             'email' => 'required|email',
         ];
     }
-
-    ...
 ```
 
 Please note that at this time, in order for this to work, the Sanitizer facade must exist.
