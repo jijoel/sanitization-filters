@@ -11,6 +11,7 @@ class SanitizerTest extends TestCase
     public function setUp()
     {
         $this->customFilters = [
+            'alpha' => \Jijoel\Sanitizer\Filters\Alphabetic::class,
             'address' => \Jijoel\Sanitizer\Filters\Address::class,
             'cast' => \Jijoel\Sanitizer\Filters\Cast::class,
             'country' => \Jijoel\Sanitizer\Filters\Country::class,
@@ -57,6 +58,11 @@ class SanitizerTest extends TestCase
     public function getTestData()
     {
         return array(
+            ['alpha', 'x', 'x'],
+            ['alpha', '1', ''],
+            ['alpha', '1a', 'a'],
+            ['alpha', '1a x', 'a x'],
+
             ['address', 'x sw', 'X SW'],
             ['address', 'x nw x', 'X NW X'],
             ['address', 'x Se x', 'X SE X'],

@@ -50,6 +50,7 @@ Available Filters
 
 Filter     | Description
 -----------|------------------------
+alpha      | Alphabetic characters only (a-z)
 address    | Street Addresses
 country    | Capitalize country name (or abbreviation)
 date       | Date values
