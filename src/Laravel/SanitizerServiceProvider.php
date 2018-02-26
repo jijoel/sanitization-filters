@@ -1,6 +1,5 @@
 <?php namespace Jijoel\Sanitizer\Laravel;
 
-use Waavi\Sanitizer\Laravel\SanitizerServiceProvider as WaaviProvider;
 use Waavi\Sanitizer\Laravel\Factory as Sanitizer;
 use Illuminate\Support\ServiceProvider;
 use Jijoel\Sanitizer\Filters;
@@ -9,6 +8,7 @@ use Jijoel\Sanitizer\Filters;
 class SanitizerServiceProvider extends ServiceProvider
 {
     private $sanitizers = [
+        'alpha' => \Jijoel\Sanitizer\Filters\Alphabetic::class,
         'address' => Filters\Address::class,
         'country' => Filters\Country::class,
         'date' => Filters\Date::class,
@@ -27,30 +27,16 @@ class SanitizerServiceProvider extends ServiceProvider
     ];
 
     /**
-     * Bootstrap the application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        //
-    }
-
-    /**
      * Register the application services.
      *
      * @return void
      */
     public function register()
     {
-        try {
-            $sanitizer = app('sanitizer');
-        } catch (\Exception $e) {
-            throw new \Exception('waavi/sanitizer service provider is not loaded. Make sure it is required BEFORE jijoel/sanitization-filters in your composer.json file');
-        }
-
-        foreach($this->sanitizers as $key => $value)
-            $sanitizer->extend($key, $value);
+        app()->resolving(Sanitizer::class, function($s, $app) {
+            foreach($this->sanitizers as $key => $value)
+                $s->extend($key, $value);
+        });
     }
 
 }
