@@ -8,7 +8,7 @@ class SanitizerTest extends TestCase
 {
     protected $customFilters;
 
-    public function setUp()
+    public function setUp() : void
     {
         $this->customFilters = [
             'alpha' => \Jijoel\Sanitizer\Filters\Alphabetic::class,
