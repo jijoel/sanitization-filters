@@ -75,7 +75,7 @@ Install with composer:
 
     composer require jijoel/sanitization-filters
 
-We also include a Laravel service provider. You can add it to your providers array in config/app.php:
+We also include a Laravel service provider, via auto-discovery. For versions of Laravel prior to 5.5, add it to your providers array in `config/app.php`:
 
 ```php
 'providers' => [
@@ -84,8 +84,6 @@ We also include a Laravel service provider. You can add it to your providers arr
     Jijoel\Sanitizer\Laravel\SanitizerServiceProvider::class,
 ];
 ```
-
-NOTE: This class extends the Waavi\Sanitizer class. The service provider MUST be loaded after the Waavi service provider, or you will get an exception that the sanitizer class does not exist.
 
 
 Usage
